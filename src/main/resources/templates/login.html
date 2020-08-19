@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Pear Technology</title>
+
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+
+    <link th:href="@{/resources/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/commons.css}" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/login}" class="form-signin" method="post">
+<!--          th:object="${user}"-->
+        <h2 class="form-signin-heading" th:text="#{label.login}">Log in</h2>
+        <div class="form-group" th:attrprepend="class=' ' + ${error != null ? 'has-error' : ''} + ' '"></div>
+        <div class="form-group">
+            <input name="username" type="text" class="form-control" th:attr="placeholder=#{label.username}" autofocus="true"/>
+        </div>
+
+        <div class="form-group">
+            <input name="password" class="form-control" type="password" th:attr="placeholder=#{label.password}"/>
+        </div>
+
+        <span th:text="${error}"></span>
+
+<!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+
+        <th:block class="form-signin-heading" th:if="${param.logout} != null" th:text="LOGOUT"/>
+
+        <h5 class="alert alert-danger" th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">Login error</h5>
+        <h5 class="alert alert-success" th:if="${message}" th:text="${message}">Message</h5>
+        <h5 class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">Error message</h5>
+        <h5 class="alert alert-success" th:if="${param.logout}" th:text="${logout}">You have been logged out</h5>
+
+        <button class="btn btn-lg btn-block btn-success" th:text="#{label.sing.in}" type="submit">Sign In</button>
+
+        <a class="btn btn-lg btn-block btn-outline-primary" th:text="#{label.sing.up}" th:href="@{/registration}">Sign Up</a>
+
+        <h4 class="text-center"><a th:text="#{label.forgot.password}" th:href="@{/forgotPassword}">Forgot password?</a></h4>
+
+    </form>
+</div>
+</body>
+</html>

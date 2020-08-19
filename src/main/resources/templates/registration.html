@@ -1,0 +1,90 @@
+<!DOCTYPE>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pear Technology</title>
+
+    <link th:href="@{/resources/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/commons.css}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="container">
+
+
+    <form method="POST" th:object="${user}" class="form-signin" enctype="utf8">
+        <h2  class="form-signin-heading" th:text="#{label.create.your.account}">Create your account</h2>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('email') ? 'has-error' : ''} + ' '">
+            <input type="email" th:field="*{email}" class="form-control" th:attr="placeholder=#{label.email}"/>
+            <th:block th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+        </div>
+
+        <!--        <div class="form-group"-->
+        <!--             th:attrprepend="class=' ' + ${#fields.hasErrors('birthDay') ? 'has-error' : ''} + ' '">-->
+        <!--            <input type="date" th:field="*{birthDay}" th:value="${#dates.format(filter.loadingStartDate, dateFormat)}" class="form-control" />-->
+        <!--            <th:block th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"/>-->
+        <!--        </div>-->
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('username') ? 'has-error' : ''} + ' '">
+            <input type="text" th:field="*{username}" class="form-control" th:attr="placeholder=#{label.username}" autofocus="true"/>
+            <th:block th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+
+        </div>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('password') ? 'has-error' : ''} + ' '">
+            <input type="password" th:field="*{password}" class="form-control" th:attr="placeholder=#{label.password}"/>
+            <th:block th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+        </div>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('confirmPassword') ? 'has-error' : ''} + ' '">
+            <input type="password" th:field="*{confirmPassword}" class="form-control" th:attr="placeholder=#{label.confirm.password}"/>
+            <th:block th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"/>
+        </div>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('firstName') ? 'has-error' : ''} + ' '">
+            <input type="text" th:field="*{firstName}" class="form-control" th:attr="placeholder=#{label.firstName}"/>
+            <th:block th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+        </div>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('lastName') ? 'has-error' : ''} + ' '">
+            <input type="text" th:field="*{lastName}" class="form-control" th:attr="placeholder=#{label.lastName}"/>
+            <th:block th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"/>
+        </div>
+
+        <div class="form-group" th:attrprepend="class=' ' + ${#fields.hasErrors('middleName') ? 'has-error' : ''} + ' '">
+            <input type="text" th:field="*{middleName}" class="form-control" th:attr="placeholder=#{label.middleName}"/>
+            <th:block th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"/>
+        </div>
+
+<!--        <th:block th:if="${error}" th:text="${error}"></th:block>-->
+
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+
+        <h5 class="alert alert-success" th:if="${message}" th:text="${message}">Message</h5>
+        <h5 class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">Error message</h5>
+
+        <button class="btn btn-lg btn-block btn-primary" type="submit" th:text="#{label.sing.up}">Sign Up</button>
+
+        <a class="btn btn-lg btn-block btn-outline-success" th:text="#{label.sing.in}" th:href="@{/login}">Sign In</a>
+
+        <h4 class="text-center"><a th:text="#{label.forgot.password}" th:href="@{/forgotPassword}">Forgot password?</a></h4>
+
+    </form>
+
+</div>
+</body>
+</html>

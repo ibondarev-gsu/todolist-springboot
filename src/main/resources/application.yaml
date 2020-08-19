@@ -7,7 +7,13 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: smtp.mailtrap.io
+    username: 3164574dab9279
+    password: 3ce258a397d483
+    port: 2525

@@ -1,4 +1,4 @@
 package com.itsupport.todolist.service;
 
-public class AdminService {
+public class AdminServiceImpl {
 }

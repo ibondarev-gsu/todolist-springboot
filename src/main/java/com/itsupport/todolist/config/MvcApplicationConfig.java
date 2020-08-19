@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -15,6 +20,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
+@EnableAsync
 public class MvcApplicationConfig implements WebMvcConfigurer {
 
     @Override
@@ -23,6 +29,19 @@ public class MvcApplicationConfig implements WebMvcConfigurer {
         registry.addViewController("/forgotPassword").setViewName("forgotPassword");
         registry.addViewController("/badUser").setViewName("badUser");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
+
+    @Bean(name = "bCryptPasswordEncoder")
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(11);
+    }
+
+
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
     }
 
     @Bean(name = "localeResolver")

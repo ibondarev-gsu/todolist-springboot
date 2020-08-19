@@ -3,11 +3,9 @@ package com.itsupport.todolist.models.dto;
 import com.itsupport.todolist.util.annotations.FieldMatch;
 import com.itsupport.todolist.util.annotations.ValidEmail;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -22,18 +20,18 @@ public class UserDto {
     private String password;
 
     //@FieldMatch applies to this field.
-    @NotBlank
+    @NotBlank(message = "{NotBlank}")
     private String confirmPassword;
 
     @ValidEmail(message = "{user.invalid.email}")
     private String email;
 
-    @NotBlank
+//    @NotBlank
     private String firstName;
 
-    @NotBlank
+//    @NotBlank
     private String lastName;
 
-    @NotBlank
+//    @NotBlank
     private String middleName;
 }

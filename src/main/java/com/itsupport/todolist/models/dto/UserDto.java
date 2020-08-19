@@ -6,6 +6,8 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -20,21 +22,18 @@ public class UserDto {
     private String password;
 
     //@FieldMatch applies to this field.
-    @NotEmpty
+    @NotBlank
     private String confirmPassword;
 
     @ValidEmail(message = "{user.invalid.email}")
     private String email;
 
-    //    @NotNull
-//    @NotEmpty
+    @NotBlank
     private String firstName;
 
-    //    @NotNull
-//    @NotEmpty
+    @NotBlank
     private String lastName;
 
-    //    @NotNull
-//    @NotEmpty
+    @NotBlank
     private String middleName;
 }

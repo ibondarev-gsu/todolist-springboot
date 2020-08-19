@@ -1,4 +1,14 @@
 package com.itsupport.todolist.repository;
 
-public class UserRepository {
+import com.itsupport.todolist.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    void delete(User user);
 }

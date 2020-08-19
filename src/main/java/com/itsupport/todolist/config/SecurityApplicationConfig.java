@@ -27,6 +27,8 @@ public class SecurityApplicationConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .disable();
+                    .disable()
+                .csrf()
+                    .disable();
     }
 }

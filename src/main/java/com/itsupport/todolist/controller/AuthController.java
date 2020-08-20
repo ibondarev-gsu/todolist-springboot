@@ -1,9 +1,9 @@
 package com.itsupport.todolist.controller;
 
-import com.itsupport.todolist.models.PasswordResetToken;
-import com.itsupport.todolist.models.User;
-import com.itsupport.todolist.models.VerificationToken;
-import com.itsupport.todolist.models.dto.UserDto;
+import com.itsupport.todolist.entities.PasswordResetToken;
+import com.itsupport.todolist.entities.User;
+import com.itsupport.todolist.entities.VerificationToken;
+import com.itsupport.todolist.dto.UserDto;
 import com.itsupport.todolist.service.interfaces.MailSenderService;
 import com.itsupport.todolist.service.interfaces.UserService;
 import com.itsupport.todolist.util.exceptions.PasswordResetTokenNotFountException;
@@ -180,7 +180,7 @@ public class AuthController {
         userService.saveUserPassword(user, password);
         redirectAttributes.addFlashAttribute("message",
                 messageSource.getMessage("message.resetPasswordSuc", null, locale));
-        return "redirect:/user/home";
+        return "redirect:/user";
     }
 
     private String createAppUrl(final HttpServletRequest request){

@@ -34,7 +34,7 @@
 <!--        <th:block class="form-signin-heading" th:if="${param.logout} != null" th:text="LOGOUT"/>-->
 
         <h5 class="alert alert-danger" th:if="${param.error}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">Login error</h5>
-<!--        <h5 class="alert alert-success" th:if="${message}" th:text="${message}">Message</h5>-->
+        <h5 class="alert alert-success" th:if="${message}" th:text="${message}">Message</h5>
         <h5 class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">Error message</h5>
         <h5 class="alert alert-success" th:if="${param.logout}" th:text="#{message.logout}">You have been logged out</h5>
 

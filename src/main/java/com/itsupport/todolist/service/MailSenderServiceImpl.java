@@ -1,6 +1,6 @@
 package com.itsupport.todolist.service;
 
-import com.itsupport.todolist.models.User;
+import com.itsupport.todolist.entities.User;
 import com.itsupport.todolist.service.interfaces.MailSenderService;
 import com.itsupport.todolist.service.interfaces.UserService;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,6 +1,6 @@
 package com.itsupport.todolist.repository;
 
-import com.itsupport.todolist.models.PasswordResetToken;
+import com.itsupport.todolist.entities.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

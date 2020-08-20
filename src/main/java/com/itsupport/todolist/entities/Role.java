@@ -1,4 +1,4 @@
-package com.itsupport.todolist.models;
+package com.itsupport.todolist.entities;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.core.GrantedAuthority;

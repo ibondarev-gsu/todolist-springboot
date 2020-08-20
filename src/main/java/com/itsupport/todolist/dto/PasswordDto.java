@@ -1,4 +1,4 @@
-package com.itsupport.todolist.models.dto;
+package com.itsupport.todolist.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.itsupport.todolist.config;
 
-import com.itsupport.todolist.models.Role;
+import com.itsupport.todolist.entities.Role;
 import com.itsupport.todolist.service.interfaces.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,8 +45,9 @@ public class SecurityApplicationConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers( "/login", "/registration", "/active",
                             "/resetPassword", "/forgotPassword",
                             "/changePassword").anonymous()
-                    .antMatchers("/updatePassword", "/user/**").hasAuthority(Role.USER.getAuthority())
-                    .antMatchers("/admin").hasAuthority(Role.ADMIN.getAuthority())
+                    .antMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
+                    .antMatchers("/updatePassword", "/user/**")
+                        .hasAnyAuthority(Role.USER.getAuthority(), Role.ADMIN.getAuthority())
                 .anyRequest().authenticated()
                 .and()
 

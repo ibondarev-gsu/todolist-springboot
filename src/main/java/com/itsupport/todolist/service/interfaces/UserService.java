@@ -1,14 +1,17 @@
 package com.itsupport.todolist.service.interfaces;
 
-import com.itsupport.todolist.models.PasswordResetToken;
-import com.itsupport.todolist.models.User;
-import com.itsupport.todolist.models.VerificationToken;
-import com.itsupport.todolist.models.dto.UserDto;
+import com.itsupport.todolist.entities.PasswordResetToken;
+import com.itsupport.todolist.entities.Task;
+import com.itsupport.todolist.entities.User;
+import com.itsupport.todolist.entities.VerificationToken;
+import com.itsupport.todolist.dto.UserDto;
 import com.itsupport.todolist.util.exceptions.PasswordResetTokenNotFountException;
 import com.itsupport.todolist.util.exceptions.UserAlreadyExistException;
 import com.itsupport.todolist.util.exceptions.UserNotFoundException;
 import com.itsupport.todolist.util.exceptions.VerificationTokenNotFountException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.Collection;
 
 public interface UserService extends UserDetailsService {
 
@@ -29,4 +32,8 @@ public interface UserService extends UserDetailsService {
     void deleteUserAndVerificationToken(final User user, final VerificationToken token);
 
     void deletePasswordResetToken(final PasswordResetToken token);
+
+    void addTask(User user, Task task);
+    void addTasks(User user, Collection<? extends Task> tasks);
+    void deleteTaskById(User user, Long id);
 }

@@ -1,4 +1,4 @@
-package com.itsupport.todolist.models;
+package com.itsupport.todolist.entities;
 
 import lombok.*;
 
@@ -6,16 +6,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "verification_token")
+@Table(name = "password_reset_token")
 @Builder(toBuilder = true)
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VerificationToken {
+public class PasswordResetToken {
     private static final int ONE_DAY = 1;
 
-    public VerificationToken(final User user, final String token) {
+    public PasswordResetToken(final User user, final String token) {
         this.token = token;
         this.user = user;
         this.expiryDate = LocalDateTime.now().plusDays(1);
@@ -25,9 +25,10 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
     private String token;
 
-    @OneToOne(mappedBy = "verificationToken")
+    @OneToOne(mappedBy = "passwordResetToken")
     private User user;
 
     @Builder.Default

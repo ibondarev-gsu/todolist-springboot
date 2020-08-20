@@ -1,4 +1,4 @@
-package com.itsupport.todolist.models.dto;
+package com.itsupport.todolist.dto;
 
 import com.itsupport.todolist.util.annotations.FieldMatch;
 import com.itsupport.todolist.util.annotations.ValidEmail;

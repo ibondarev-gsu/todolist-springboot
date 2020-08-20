@@ -1,9 +1,4 @@
-package com.itsupport.todolist.models;
-
-import lombok.*;
-
-import javax.persistence.*;
-import java.util.Collection;
+package com.itsupport.todolist.entities;
 
 //@Entity
 //@Builder(toBuilder = true)

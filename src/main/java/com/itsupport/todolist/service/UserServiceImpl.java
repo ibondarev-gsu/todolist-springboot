@@ -1,11 +1,9 @@
 package com.itsupport.todolist.service;
 
-import com.itsupport.todolist.models.PasswordResetToken;
-import com.itsupport.todolist.models.Role;
-import com.itsupport.todolist.models.User;
-import com.itsupport.todolist.models.VerificationToken;
-import com.itsupport.todolist.models.dto.UserDto;
+import com.itsupport.todolist.entities.*;
+import com.itsupport.todolist.dto.UserDto;
 import com.itsupport.todolist.repository.PasswordResetTokenRepository;
+import com.itsupport.todolist.repository.TaskRepository;
 import com.itsupport.todolist.repository.UserRepository;
 import com.itsupport.todolist.repository.VerificationTokenRepository;
 import com.itsupport.todolist.service.interfaces.UserService;
@@ -20,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Collections;
 
 @Service
@@ -28,6 +27,7 @@ import java.util.Collections;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
     private final PasswordEncoder passwordEncoder;
     private final VerificationTokenRepository verificationTokenRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
@@ -121,7 +121,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public void addTask(User user, Task task) {
+        user.getTasks().add(task);
+        task.getUsers().add(user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void addTasks(User user, Collection<? extends Task> tasks) {
+
+    }
+
+    @Override
     public User findUserByEmail(String userEmail) throws UserNotFoundException {
         return userRepository.findByEmail(userEmail).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTaskById(User user, Long id) {
+        Task task = Task.builder().id(id).build();
+        user.getTasks().remove(task);
+        userRepository.save(user);
+        taskRepository.delete(task);
     }
 }

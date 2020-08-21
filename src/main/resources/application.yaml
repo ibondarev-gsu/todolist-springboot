@@ -9,11 +9,18 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
+
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-#        enable_lazy_load_no_trans: true
+        enable_lazy_load_no_trans: true
+#        event:
+#          merge:
+#            entity_copy_observer: allow
   mail:
     host: smtp.mailtrap.io
     username: 3164574dab9279
     password: 3ce258a397d483
     port: 2525
+
+#  main:
+#    lazy-initialization: true

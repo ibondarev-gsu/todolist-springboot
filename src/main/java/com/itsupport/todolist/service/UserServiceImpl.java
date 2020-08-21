@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Service
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -123,9 +123,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addTask(User user, Task task) {
+        task.setUser(user);
         user.getTasks().add(task);
-        task.getUsers().add(user);
-        userRepository.save(user);
+        taskRepository.save(task);
+//        taskRepository.save(task);
+//        userRepository.save(user);
+//        user.getTasks().add(task);
+//        task.getUsers().add(user);
+//        taskRepository.save(task);
+//        userRepository.save(user);
     }
 
     @Override
@@ -141,9 +147,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteTaskById(User user, Long id) {
-        Task task = Task.builder().id(id).build();
-        user.getTasks().remove(task);
-        userRepository.save(user);
-        taskRepository.delete(task);
+        Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+        if (user.getTasks().remove(task)){
+            taskRepository.delete(task);
+        }
+
     }
 }

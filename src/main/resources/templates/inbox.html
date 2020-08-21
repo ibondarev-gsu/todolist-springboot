@@ -66,7 +66,7 @@
         <th:block th:each="task : ${user.tasks}">
             <form th:action="@{/user/task/__${task.id}__}" th:method="delete">
                 <input type="hidden" name="_method" value="delete" />
-                <li th:utext="Описание + ${task.description} + ${task.dateOfCreation}">..</li>
+                <li th:utext="${task.description} + '    ' + ${task.dateOfCreation.toString()}">..</li>
                 <button type="submit">delete</button>
             </form>
         </th:block>

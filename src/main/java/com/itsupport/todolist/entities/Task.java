@@ -9,22 +9,21 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
-@Builder(toBuilder = true)
-@Setter
-@Getter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = "id")
 public class Task {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            mappedBy = "tasks")
-    private Set<User> users = new HashSet<>();
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String description;
 

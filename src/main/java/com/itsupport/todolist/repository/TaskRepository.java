@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    Optional<Collection<Task>> findTasksByUsersAndDateOfCreationBetween(User user, LocalDateTime start, LocalDateTime end);
-    Optional<Collection<Task>> findTasksByUsers(User user);
+//    Optional<Collection<Task>> findTaskByUserAndDateOfCreationBetween(User user, LocalDateTime start, LocalDateTime end);
+//    Optional<Collection<Task>> findTaskByUser(User user);
     void delete(Task task);
 }

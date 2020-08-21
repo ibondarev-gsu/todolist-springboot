@@ -3,8 +3,10 @@ package com.itsupport.todolist.controller;
 import com.itsupport.todolist.dto.UserDto;
 import com.itsupport.todolist.entities.Task;
 import com.itsupport.todolist.entities.User;
+import com.itsupport.todolist.repository.TaskRepository;
 import com.itsupport.todolist.repository.UserRepository;
 import com.itsupport.todolist.service.interfaces.UserService;
+import com.sun.deploy.security.CertStore;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 
 @Slf4j
@@ -22,6 +25,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
 
     @GetMapping
     public ModelAndView home(final ModelAndView modelAndView, final @AuthenticationPrincipal User user){
@@ -61,7 +65,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @DeleteMapping("/task/{id}")
+    @PostMapping("/task/{id}")
     public ModelAndView deleteTask(final ModelAndView modelAndView,
                                    final @PathVariable Long id,
                                    final @AuthenticationPrincipal User user){

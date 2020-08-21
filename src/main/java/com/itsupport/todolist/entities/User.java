@@ -12,14 +12,16 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@Builder(toBuilder = true)
-@Setter
+@Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails, Serializable {
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -66,10 +68,10 @@ public class User implements UserDetails, Serializable {
     private VerificationToken verificationToken;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_tasks",
-            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "task_id", referencedColumnName = "id") })
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    @JoinTable(name = "users_tasks",
+//            joinColumns = { @JoinColumn(name = "user_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "task_id") })
     private Set<Task> tasks = new HashSet<>();
 
 

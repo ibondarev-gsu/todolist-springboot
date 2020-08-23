@@ -69,7 +69,7 @@
         <th:block th:each="user : ${users}">
             <form th:action="@{users/__${user.id}__}" th:method="post">
 <!--                <input type="hidden" name="_method" value="delete" />-->
-                <li  th:text="${user.username}">..</li>
+                <a th:href="@{user/__${user.id}__}"><li  th:text="${user.username}">..</li></a>
                 <button type="submit">delete</button>
             </form>
         </th:block>

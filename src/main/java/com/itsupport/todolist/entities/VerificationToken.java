@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "verification_token")
 @Builder(toBuilder = true)
-@Setter
-@Getter
+@Setter @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class VerificationToken {

@@ -19,19 +19,15 @@ public class UserDto {
     @Size(min = 6, max = 32, message = "{Size.userForm.password}")
     private String password;
 
-    //@FieldMatch applies to this field.
     @NotBlank(message = "{NotBlank}")
     private String confirmPassword;
 
     @ValidEmail(message = "{user.invalid.email}")
     private String email;
 
-//    @NotBlank
     private String firstName;
 
-//    @NotBlank
     private String lastName;
 
-//    @NotBlank
     private String middleName;
 }

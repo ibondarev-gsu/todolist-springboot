@@ -39,8 +39,11 @@ public class AuthController {
     private final MailSenderService mailSenderService;
 
     @GetMapping
-    public String home(){
-        return "redirect:/user/home";
+    public ModelAndView home(final ModelAndView modelAndView,
+                             final @AuthenticationPrincipal User user){
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("inbox");
+        return modelAndView;
     }
 
     @GetMapping(value = "/registration")
@@ -76,7 +79,6 @@ public class AuthController {
     public String confirmRegistration(final Locale locale,
                                       final RedirectAttributes redirectAttributes,
                                       final @RequestParam("code") String activeCode) {
-
         try {
             VerificationToken verificationToken = userService.findVerificationTokenByToken(activeCode);
 
@@ -100,6 +102,7 @@ public class AuthController {
 
             redirectAttributes.addFlashAttribute("message",
                     messageSource.getMessage("message.account.enable", null, locale));
+
             return "redirect:/login";
 
         } catch (VerificationTokenNotFountException e) {

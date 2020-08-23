@@ -12,16 +12,13 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails, Serializable {
 
+    public User() {
+    }
 
     @Id
-//    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -45,14 +42,14 @@ public class User implements UserDetails, Serializable {
     private String middleName;
 
     @Column(name = "enabled")
-    @Builder.Default
+//    @Builder.Default
     private Boolean enabled = false;
 
-    @Builder.Default
+//    @Builder.Default
     private Boolean isCredentialsNonExpired = true;
-    @Builder.Default
+//    @Builder.Default
     private Boolean isAccountNonLocked = true;
-    @Builder.Default
+//    @Builder.Default
     private Boolean isAccountNonExpired = true;
 
     @Column(name = "created")
@@ -68,11 +65,11 @@ public class User implements UserDetails, Serializable {
     private VerificationToken verificationToken;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 //    @JoinTable(name = "users_tasks",
 //            joinColumns = { @JoinColumn(name = "user_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "task_id") })
-    private Set<Task> tasks = new HashSet<>();
+    private Collection<Task> tasks = new ArrayList<>();
 
 
 
@@ -135,5 +132,165 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public Boolean getCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
+    }
+
+    public Boolean getAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public void setAccountNonLocked(Boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public Boolean getAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    public void setAccountNonExpired(Boolean accountNonExpired) {
+        isAccountNonExpired = accountNonExpired;
+    }
+
+    public PasswordResetToken getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
+    }
+
+    public VerificationToken getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(VerificationToken verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public Collection<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(middleName, user.middleName) &&
+                Objects.equals(enabled, user.enabled) &&
+                Objects.equals(isCredentialsNonExpired, user.isCredentialsNonExpired) &&
+                Objects.equals(isAccountNonLocked, user.isAccountNonLocked) &&
+                Objects.equals(isAccountNonExpired, user.isAccountNonExpired) &&
+                Objects.equals(created, user.created) &&
+                Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, email, firstName, lastName, middleName, enabled, isCredentialsNonExpired, isAccountNonLocked, isAccountNonExpired, created, roles);
+    }
+
+    public void addTask(Task task){
+        this.tasks.add(task);
+        task.setUser(this);
     }
 }

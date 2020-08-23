@@ -43,12 +43,12 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/user/inbox}">Inbox</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/today}">Today</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/done}">Done</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/user/today}">Today</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/user/done}">Done</a>-->
+<!--                </li>-->
 <!--                <th:block th:if=""></th:block>-->
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{/admin/users}">User list</a>

@@ -22,9 +22,9 @@ public class TodolistApplication {
 
 
 	public void run(String... args) throws Exception {
-		User user = userRepository.findByEmail("vania.bondarev@gmail.com").orElseThrow(Exception::new);
-		user.getTasks().add(Task.builder().description("456").build());
-		user.getTasks().add(Task.builder().description("464564").build());
-		userRepository.save(user);
+//		User user = userRepository.findByEmail("vania.bondarev@gmail.com").orElseThrow(Exception::new);
+//		user.getTasks().add(Task.builder().description("456").build());
+//		user.getTasks().add(Task.builder().description("464564").build());
+//		userRepository.save(user);
 	}
 }

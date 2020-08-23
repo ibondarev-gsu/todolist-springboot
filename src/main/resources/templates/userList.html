@@ -23,42 +23,57 @@
 </head>
 
 <body>
-<!--<div class="container">-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!--        <a class="navbar-brand" th:href="@{/user}" th:text="${user.username}">Username</a>-->
-    <!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-    <!--            <span class="navbar-toggler-icon"></span>-->
-    <!--        </button>-->
+    <!--<div class="container">-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!--        <a class="navbar-brand" th:href="@{/user}" th:text="${user.username}">Username</a>-->
+        <!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--            <span class="navbar-toggler-icon"></span>-->
+        <!--        </button>-->
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user}" th:text="${user.roles}">Role<span class="sr-only">(current)</span></a>
-            </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user}" th:text="${user.roles}">Role<span class="sr-only">(current)</span></a>
+                </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user}" th:text="${user.username}">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/inbox}">Inbox</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/today}">Today</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/done}">Done</a>
-            </li>
-            <!--                <th:block th:if=""></th:block>-->
-            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                <a class="nav-link" th:href="@{/admin/users}">User list</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
-        </form>
-    </div>
-</nav>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user}" th:text="${user.username}">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/inbox}">Inbox</a>
+                </li>
+    <!--            <li class="nav-item">-->
+    <!--                <a class="nav-link" th:href="@{/user/today}">Today</a>-->
+    <!--            </li>-->
+    <!--            <li class="nav-item">-->
+    <!--                <a class="nav-link" th:href="@{/user/done}">Done</a>-->
+    <!--            </li>-->
+                <!--                <th:block th:if=""></th:block>-->
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/users}">User list</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+<!--<form class="form-inline" th:action="@{/users}" th:method="post">-->
+<!--    <input type="text" name="description">-->
+<!--    <button type="submit">add</button>-->
+<!--</form>-->
+
+    <ul>
+        <th:block th:each="user : ${users}">
+            <form th:action="@{users/__${user.id}__}" th:method="post">
+<!--                <input type="hidden" name="_method" value="delete" />-->
+                <li  th:text="${user.username}">..</li>
+                <button type="submit">delete</button>
+            </form>
+        </th:block>
+    </ul>
 <!--</div>-->
 </body>
 </html>

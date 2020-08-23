@@ -40,12 +40,12 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/user/inbox}">Inbox</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/today}">Today</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/done}">Done</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/user/today}">Today</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/user/done}">Done</a>-->
+<!--                </li>-->
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{/admin/users}">User list</a>
                 </li>
@@ -57,15 +57,15 @@
     </nav>
 
 
-    <form th:action="@{/user/task}" th:method="post">
-        <input type="text" name="description">
+    <form class="form-inline" th:action="@{/user/task}" th:method="post">
+        <input  type="text" name="description">
         <button type="submit">add</button>
     </form>
 
     <ul>
-        <th:block th:each="task : ${user.tasks}">
-            <form th:action="@{/user/task/__${task.id}__}" th:method="delete">
-                <input type="hidden" name="_method" value="delete" />
+        <th:block class="form-inline" th:each="task : ${user.tasks}">
+            <form th:action="@{/user/task/__${task.id}__}" th:method="post">
+<!--                <input type="hidden" name="_method" value="delete" />-->
                 <li th:utext="${task.description} + '    ' + ${task.dateOfCreation.toString()}">..</li>
                 <button type="submit">delete</button>
             </form>

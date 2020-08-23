@@ -12,6 +12,7 @@ import com.itsupport.todolist.util.exceptions.UserAlreadyExistException;
 import com.itsupport.todolist.util.exceptions.UserNotFoundException;
 import com.itsupport.todolist.util.exceptions.VerificationTokenNotFountException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ import java.util.Collections;
 @Service
 //@Transactional(readOnly = true)
 @AllArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public User createAccount(final UserDto userDto) throws UserAlreadyExistException {
 
         final String email = userDto.getEmail();
@@ -52,20 +54,30 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistException("There is an account with that email: " + email);
         }
 
-        return userRepository.save(User.builder()
-                .email(userDto.getEmail())
-                .username(userDto.getUsername())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .middleName(userDto.getMiddleName())
-                .roles(Collections.singleton(Role.USER))
-                .build()
-        );
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setMiddleName(userDto.getMiddleName());
+        user.setRoles(Collections.singleton(Role.USER));
+
+        return userRepository.save(user);
+//        return userRepository.save(User.builder()
+//                .email(userDto.getEmail())
+//                .username(userDto.getUsername())
+//                .password(passwordEncoder.encode(userDto.getPassword()))
+//                .firstName(userDto.getFirstName())
+//                .lastName(userDto.getLastName())
+//                .middleName(userDto.getMiddleName())
+//                .roles(Collections.singleton(Role.USER))
+//                .build()
+//        );
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void saveVerificationToken(final User user, final String token) {
         user.setVerificationToken(VerificationToken.builder().token(token).build());
         userRepository.save(user);
@@ -121,17 +133,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void addTask(User user, Task task) {
-        task.setUser(user);
-        user.getTasks().add(task);
+//        user.addTask(task);
+        user.addTask(task);
         taskRepository.save(task);
+//        userRepository.save(user);
+//
 //        taskRepository.save(task);
 //        userRepository.save(user);
-//        user.getTasks().add(task);
 //        task.getUsers().add(user);
+//        user.getTasks().add(task);
 //        taskRepository.save(task);
-//        userRepository.save(user);
     }
 
     @Override
@@ -148,9 +161,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteTaskById(User user, Long id) {
         Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+        if (user.getTasks().contains(task)){
+            System.out.println("HELLO");
+        }
         if (user.getTasks().remove(task)){
             taskRepository.delete(task);
+//            System.out.println("HELLO");
+//            userRepository.save(user);
         }
+//        if (task.getUsers().contains(user)){
+//            System.out.println("HELLO");
+//            taskRepository.delete(task);
+//        }
+//        if (task.getUsers().getId().equals(task.getId())){
+//            System.out.println("HELLO");
+//        }
 
+        System.out.println(user.getTasks());
+        System.out.println(task);
     }
 }

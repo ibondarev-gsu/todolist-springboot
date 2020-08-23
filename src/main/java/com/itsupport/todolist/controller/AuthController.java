@@ -119,14 +119,12 @@ public class AuthController {
                                 @RequestParam("email") String userEmail) {
 
         try {
-
-
             mailSenderService.sendPasswordResetCode(userService.findUserByEmail(userEmail));
 
 //            redirectAttributes.addFlashAttribute("message",
 //                    messageSource.getMessage("message.resetPasswordEmail", null, request.getLocale()));
         } catch (UserNotFoundException e) {
-
+            log.error(e.getMessage());
         }
 
         redirectAttributes.addFlashAttribute("message",
@@ -171,14 +169,10 @@ public class AuthController {
 
     //    @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @PostMapping(value = "/updatePassword")
-    public String savePassword(
-            final Locale locale,
-            final @AuthenticationPrincipal User user,
-            final RedirectAttributes redirectAttributes,
-            final @RequestParam("password") String password
-    ) {
-
-//        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String savePassword(final Locale locale,
+                            final @AuthenticationPrincipal User user,
+                            final RedirectAttributes redirectAttributes,
+                            final @RequestParam("password") String password) {
 
         userService.saveUserPassword(user, password);
         redirectAttributes.addFlashAttribute("message",

@@ -1,7 +1,9 @@
 package com.itsupport.todolist.config;
 
 import com.itsupport.todolist.entities.Role;
+import com.itsupport.todolist.security.jwt.JwtConfig;
 import com.itsupport.todolist.service.interfaces.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
+import javax.crypto.SecretKey;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -20,19 +24,14 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
         securedEnabled = true,
         jsr250Enabled = true
 )
+@AllArgsConstructor
 public class SecurityApplicationConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
     private final AuthenticationFailureHandler failureHandler;
     private final PasswordEncoder passwordEncoder;
-
-    public SecurityApplicationConfig(UserService userService,
-                                     AuthenticationFailureHandler failureHandler,
-                                     PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.failureHandler = failureHandler;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

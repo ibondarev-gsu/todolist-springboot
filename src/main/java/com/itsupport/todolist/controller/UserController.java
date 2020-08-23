@@ -2,8 +2,6 @@ package com.itsupport.todolist.controller;
 
 import com.itsupport.todolist.entities.Task;
 import com.itsupport.todolist.entities.User;
-import com.itsupport.todolist.repository.TaskRepository;
-import com.itsupport.todolist.repository.UserRepository;
 import com.itsupport.todolist.service.interfaces.UserService;
 import com.itsupport.todolist.util.exceptions.TaskNotFoundException;
 import lombok.AllArgsConstructor;
@@ -72,6 +70,5 @@ public class UserController {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
-
     }
 }

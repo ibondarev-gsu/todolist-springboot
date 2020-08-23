@@ -3,15 +3,18 @@ package com.itsupport.todolist;
 import com.itsupport.todolist.entities.Task;
 import com.itsupport.todolist.entities.User;
 import com.itsupport.todolist.repository.UserRepository;
+import com.itsupport.todolist.security.jwt.JwtConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.util.Optional;
 
 @AllArgsConstructor
 @SpringBootApplication
+@EnableConfigurationProperties(JwtConfig.class)
 public class TodolistApplication {
 
 	private final UserRepository userRepository;

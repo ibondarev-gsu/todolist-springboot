@@ -50,8 +50,10 @@ public class User implements UserDetails, Serializable {
 
     @Builder.Default
     private Boolean isCredentialsNonExpired = true;
+
     @Builder.Default
     private Boolean isAccountNonLocked = true;
+
     @Builder.Default
     private Boolean isAccountNonExpired = true;
 
@@ -69,14 +71,29 @@ public class User implements UserDetails, Serializable {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Collection<Task> tasks = new ArrayList<>();
-
-
+    private Collection<Task> tasks = new HashSet<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Collection<Role> roles;
+
+
+    public void addTask(Task task){
+        this.tasks.add(task);
+        task.setUser(this);
+    }
+
+    public void addTasks(Collection<? extends Task> tasks) {
+        this.getTasks().addAll(tasks);
+        for (Task task: tasks) {
+            task.setUser(this);
+        }
+    }
+
+    public boolean removeTask(Task task){
+        return this.tasks.remove(task);
+    }
 
     /**
      * Returns the authorities granted to the user. Cannot return <code>null</code>.
@@ -132,21 +149,5 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void addTask(Task task){
-        this.tasks.add(task);
-        task.setUser(this);
-    }
-
-    public void addTasks(Collection<? extends Task> tasks) {
-        this.getTasks().addAll(tasks);
-        for (Task task: tasks) {
-            task.setUser(this);
-        }
-    }
-
-    public boolean removeTask(Task task){
-        return this.tasks.remove(task);
     }
 }

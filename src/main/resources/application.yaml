@@ -24,3 +24,9 @@ spring:
 
 #  main:
 #    lazy-initialization: true
+
+application:
+  jwt:
+    secretKey: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecure
+    tokenPrefix: Bearer
+    tokenExpirationAfterDays: 10

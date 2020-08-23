@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "password_reset_token")
 @Builder(toBuilder = true)
-@Setter
-@Getter
+@Setter @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PasswordResetToken {
@@ -24,7 +23,6 @@ public class PasswordResetToken {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     private String token;
 

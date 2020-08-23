@@ -20,27 +20,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-<!--		<spring.version>5.2.1.RELEASE</spring.version>-->
-<!--		<spring-security.version>5.2.1.RELEASE</spring-security.version>-->
-<!--		<spring-data-jpa.version>2.2.4.RELEASE</spring-data-jpa.version>-->
-<!--		<hibernate.version>5.2.1.Final</hibernate.version>-->
-<!--		<hibernate-validator.version>5.2.1.Final</hibernate-validator.version>-->
-<!--		<commons-dbcp.version>1.4</commons-dbcp.version>-->
 
-<!--		<junit.version>4.12</junit.version>-->
-<!--		<logback.version>1.1.3</logback.version>-->
-<!--		<servlet.version>4.0.1</servlet.version>-->
-<!--		<mysql-connector.version>8.0.19</mysql-connector.version>-->
-<!--		<postgres.version>42.2.12</postgres.version>-->
-<!--		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>-->
-<!--		<lombok.version>1.18.10</lombok.version>-->
-<!--		<mockito.version>1.10.19</mockito.version>-->
-<!--		<junit.version>5.1.0</junit.version>-->
-
-
-
+		<guava.version>28.1-jre</guava.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<passay.version>1.6.0</passay.version>
+		<jsonwebtoken.version>0.10.7</jsonwebtoken.version>
 	</properties>
 
 	<dependencies>
@@ -75,8 +59,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
 		<dependency>
@@ -122,15 +111,30 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jsonwebtoken.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jsonwebtoken.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jsonwebtoken.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 
